@@ -1,0 +1,76 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+require APPPATH.'/libraries/REST_Controller.php';
+
+class Customer extends REST_Controller {
+
+	function __construct() {
+		parent::__construct();
+	}
+
+	function login_get() {
+		$this->load->library('form_validation');
+		$this->form_validation->set_data($this->get());
+		if ($this->form_validation->run('customer_login') != false) {
+			$userName = $this->input->get('USERNAME', TRUE);
+			$password = $this->input->get('PASSWORD', TRUE);
+			$this->load->model('Model_customer');
+			$customer = $this->Model_customer->get_by(array('USERNAME' => $userName, 'PASSWORD' => $password));
+			if (isset($customer['CUSTOMER_ID'])) {
+				$this->response(array('status' => 'SUCCESS', 'message' => 'LoggedIn', 'payload' => $customer), REST_Controller::HTTP_OK);
+			} else {
+				$this->response(array('status' => 'FAIL', 'message' => 'Customer not found in the database'), REST_Controller::HTTP_NOT_FOUND);
+			}
+		} else {
+			$this->response(array('status' => 'FAILED', 'message' => $this->form_validation->get_errors_as_array()), REST_Controller::HTTP_BAD_REQUEST);
+		}
+	}
+
+	function login_post() {
+		$this->load->library('form_validation');
+		$this->form_validation->set_data($this->post());
+		if ($this->form_validation->run('customer_login') != false) {
+			$userName = $this->input->post('USERNAME', TRUE);
+			$password = $this->input->post('PASSWORD', TRUE);
+			$this->load->model('Model_customer');
+			$customer = $this->Model_customer->get_by(array('USERNAME' => $userName, 'PASSWORD' => $password));
+
+			if (isset($customer['CUSTOMER_ID'])) {
+				$customer = array_change_key_case($customer, CASE_LOWER);
+				$this->response(array('status' => 'SUCCESS', 'message' => 'LoggedIn', 'payload' => $customer), REST_Controller::HTTP_OK);
+			} else {
+				$this->response(array('status' => 'FAIL', 'message' => 'Customer not found in the database'), REST_Controller::HTTP_NOT_FOUND);
+			}
+		} else {
+			$this->response(array('status' => 'FAILED', 'message' => $this->form_validation->get_errors_as_array()), REST_Controller::HTTP_BAD_REQUEST);
+		}
+	}
+
+	function find_get() {
+		$this->response('LoggedIn');
+	}
+
+	function register_put() {
+		$this->load->library('form_validation');
+		$this->form_validation->set_data($this->put());
+		if ($this->form_validation->run('customer_register') != false) {
+			$this->load->model('Model_customer');
+			$customer = $this->put();
+			//$customer['CUSTOMER_ID']=123123;
+			$customer_id = $this->Model_customer->insert($customer);
+			if (!$customer_id) {
+				$this->response(array('status' => 'FAIL', 'message' => 'internal database error while inserting db record'), REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
+
+			} else {
+				$this->response(array('status' => 'SUCCESS', 'message' => 'Customer Created', 'payload' => $customer_id), REST_Controller::HTTP_OK);
+			}
+
+		} else {
+			$this->response(array('status' => 'FAIL', 'message' => $this->form_validation->get_errors_as_array()), REST_Controller::HTTP_BAD_REQUEST);
+		}
+
+		$this->response('LoggedIn');
+	}
+
+}
+
+?>

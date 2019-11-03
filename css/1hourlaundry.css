@@ -1,0 +1,150 @@
+﻿
+.brand-logo-img {
+    height: 25px;
+}
+
+body { 
+    padding-top: 65px; 
+}
+
+#contacts,  #tariff, #services, #tips {
+    padding-top: 65px;    
+    margin-top:-65px;
+}
+
+.modal .modal-body {
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+.navbar-nav > li > button {
+    margin-left: 10px;
+    margin-right: 15px;
+}
+
+.jumbotron-heading {
+    color: #f38e17;
+}
+
+.services-image {
+    margin-top:13px;
+    width:85px;
+    padding:3px;    
+    background-color:#f38e17;    
+        
+}
+
+.services-image-icon {
+    width:50px;
+    padding:3px;
+    background-color:#f38e17;    
+}
+
+.carousel-inner {
+   margin-bottom:50px;
+}
+
+.carousel-indicators {
+  bottom:-50px;  
+}
+.carousel-indicators li {
+    background: #ccc;
+}
+
+.carousel-indicators .active {
+    background: #f38e17;
+}
+
+
+.jumbotron-container-services {
+     padding-bottom: 5px;
+}
+
+.row-img {
+    width: 150px;
+    padding-bottom: 10px;
+}
+
+.jumbotron {
+    padding-top: 5px;    
+}
+
+.item {
+    background-color: #f38e17;
+}
+
+.navbar {
+    border-radius: 0 !important;
+    margin-bottom: 0px;
+}
+
+.navbar-inverse {
+    padding-bottom: 0px;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #f38e17;
+}
+
+.brand-color {
+    color: #f38e17;
+}
+
+
+
+.feagures-col {
+    padding-bottom: 5px;
+}
+
+#map-canvas {
+    width: 100%;
+    height: 300px;
+}
+
+.panel-heading{
+    padding-bottom: 5px;
+    padding-top:5px;
+}
+
+#myCarousel .carousel-inner .item img {
+  width: auto;
+  
+  max-height: 467px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+.carousel-fade .carousel-inner .item {
+  opacity: 0;
+  -webkit-transition-property: opacity;
+  -moz-transition-property: opacity;
+  -o-transition-property: opacity;
+  transition-property: opacity;
+}
+.carousel-fade .carousel-inner .active {
+  opacity: 1;
+}
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  left: 0;
+  opacity: 0;
+  z-index: 1;
+}
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+  opacity: 1;
+}
+.carousel-fade .carousel-control {
+  z-index: 2;
+}
+
+.service-text-size{
+    font-size:x-large;
+}
+    
+#button-wraper {
+    position:fixed;
+    right: 30px;
+    bottom:10px;
+    z-index: 1;
+}

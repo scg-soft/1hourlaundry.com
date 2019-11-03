@@ -1,0 +1,901 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>1 Hour Laundry</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="img/browser-logo.gif">
+
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/1hourlaundry.css" rel="stylesheet" />
+    
+    <!--<link href="css/TimeCircles.css" rel="stylesheet" />-->
+    
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+        
+    <script src="js/1hourlaundry.js"></script>
+    
+    <!--<script src="js/TimeCircles.js"></script>-->
+    
+
+    
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-71357493-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <!--
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        -->
+</head>
+<body ng-app="1HourLaundryApp">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="index.html">
+                    <!--<img class="brand-logo-img img-rounded" src="img/Logo.jpg" alt="1 Hour Laundry" />-->
+                    1 Hour Laundry
+
+                </a>
+
+
+
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="#"> <span class="glyphicon glyphicon-home"></span> Home</a></li>
+                    <!--
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Page 1-1</a></li>
+                            <li><a href="#">Page 1-2</a></li>
+                            <li><a href="#">Page 1-3</a></li>
+                        </ul>
+                    </li>
+                     -->
+
+                    <li><a href="#contacts" onclick="collapsemenu()"> <span class="glyphicon glyphicon-map-marker"></span> Location</a></li>
+                    <li><a href="#services"><span class="glyphicon glyphicon-leaf"></span> Services</a></li>
+                    <!--<li><a href="#tariff"> <span class="glyphicon glyphicon-tag"></span> Tariff</a></li>-->
+                    <li><a href="#tips"> <span class="glyphicon glyphicon-flag"></span> Tips</a></li>
+
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-divider"></li>
+                    <li class="hidden-sm">  <a href="tel:+91 9000828884"> Call / Text / WhatsApp to &nbsp; <span class="btn btn-sm btn-warning"> <span class="glyphicon glyphicon-earphone"></span> +91 9000 82 88 84  </span> </a></li>
+                    <li class="hidden-md hidden-xs hidden-lg">  <a href="tel:+91 9000828884"> <span class="btn btn-xs btn-warning"> <span class="glyphicon glyphicon-earphone"></span> 9000828884  </span> </a></li>
+
+                    <!--
+                     <li><button type="button" class="btn btn-info btn-sm navbar-btn visible-lg visible-md visible-sm" data-toggle="modal" data-target="#loginModal"> <span class="glyphicon glyphicon-log-in"></span> Log in</button></li>
+                    <li><a class="hidden-sm hidden-lg hidden-md" data-toggle="modal" data-target="#loginModal"> <span class="glyphicon glyphicon-log-in"></span> Log in</a></li>
+                    <li><button type="button" class="btn btn-danger btn-sm navbar-btn visible-lg visible-md visible-sm" data-toggle="modal" data-target="#signupModal"><span class="glyphicon glyphicon-user"></span> Create Account</button></li>
+                    <li><a class="hidden-sm hidden-lg hidden-md" data-toggle="modal" data-target="#signupModal"><span class="glyphicon glyphicon-user"></span> Create Account</a></li>
+                        -->
+                </ul>
+            </div>
+
+        </div>
+
+    </nav>
+    <!--
+        <div class="container">
+            <center>
+                <h3>
+                    <div class="alert alert-danger" role="alert">
+                       <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Sorry to inform you that we are closed from 31/12/2017 to 5/1/2018 for Technical Maintenance. See you in 2018.
+                </h3>
+                <h2>
+                    <h4 class="text-success"> We will be back at 9 AM IST, 6th Jan 2018 </h4>
+
+                        <div class="hidden-xs show-lg show-md show-sm" id="DateCountdown" data-date="2018-01-06 9:00:00 GMT+0530" style="width: 400px; "></div>
+                        <div class="show-xs hidden-lg hidden-md hidden-sm" id="DateCountdown1" data-date="2018-01-06 9:00:00 GMT+0530" style="width: 250px; "></div>
+
+                </h2>
+            </center>
+        </div>
+    -->
+
+    <div class="container">
+        <center>
+            <div class="jumbotron">
+                <div class="jumbotron-container">
+
+                    <!--Event count down code -->
+                    <!--
+                    <h2 class="text-success"> Grand Opening </h2> <h4>10th Sep 2015, 10 AM IST </h4>
+
+                        <div class="hidden-xs" id="DateCountdown" data-date="2015-09-10 10:00:00 GMT+0530" style="width: 500px; "></div>
+                    <div class="show-xs hidden-lg hidden-md hidden-sm" id="DateCountdown1" data-date="2015-09-10 10:00:00 GMT+0530" style="width: 200px; "></div>
+                    -->
+                    <h1> <span class="jumbotron-heading"> 1 Hour Laundry </span></h1>
+                    <p class="text-right">"Save time, energy and money for loved ones"</p>
+
+
+
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                            <li data-target="#myCarousel" data-slide-to="3"></li>
+                            <!--
+                             <li data-target="#myCarousel" data-slide-to="4"></li>
+
+                            <li data-target="#myCarousel" data-slide-to="5"></li>-->
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img src="img/Logo.jpg">
+                                <div class="carousel-caption">
+
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <img src="img/Day1.jpg">
+                                <div class="carousel-caption">
+
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <img src="img/Address.jpg">
+                                <div class="carousel-caption">
+
+                                </div>
+                            </div>
+                            <!--
+                            <div class="item">
+                                <img src="img/membership.jpg">
+                                <div class="carousel-caption">
+
+                                </div>
+                            </div>
+                                -->
+                            <div class="item">
+                                <img src="img/24x7_Banner.jpg">
+                                <div class="carousel-caption">
+
+                                </div>
+                            </div>
+                            <!--
+                             <div class="item">
+                                 <img src="img/pongal-sale.jpg">
+                                 <div class="carousel-caption">
+
+                                 </div>
+                             </div>
+
+                             <div class="item">
+                                 <img src="img/Into3.jpg">
+                                 <div class="carousel-caption">
+
+                                 </div>
+                             </div>
+                                -->
+
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+
+
+                </div>
+                <!--
+                <h3> <span class="brand-color"> Happy Pongal </span> 10% off on all new memberships (13th Jan to 20th Jan)</h3>
+                <br>
+                <a class="btn btn-sm btn-info" data-toggle="modal" data-target="#offersModal"> Membership Details </a>
+                    -->
+            </div>
+        </center>
+        <div id="services"></div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h4> Services</h4> </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-xs-12">
+                        <h4>Ideal For</h4>
+                        <p>
+                            Shirts , Trousers, Inner wear, Towels,
+                            Bed sheets, Blankets, Curtains, Quilts
+                            Comforters, Sofa Covers, Table Cloths etc
+                            <br />
+                            <i> ** <b>1 Hour Service </b> is only for "Self Service", All other's are same day pickup / delivery services.</i>
+                        </p>
+                    </div>
+
+                </div>
+                <br class="divider" />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div>
+
+                            <h4 class="text-primary text-nowrap">
+                                <b> Self Service (uWash) </b>
+                                <img class="img-circle services-image-icon" src="img/1Hour_Icon.png" />
+                            </h4>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2 col-lg-2 col-xs-3">
+
+                                <img class="img-circle services-image" src="img/self.png" />
+
+                            </div>
+
+                            <div class="col-md-10 col-lg-10 col-xs-9">
+                                <p class="text-left text-info">
+                                    <ul>
+                                        <li> You do the cuff and collar treatments, load the washer, load the drier and collect your clothes 100% dry.</li>
+                                        <li> Detergent, fabric softener and 100% drying are included in the costs.</li>
+                                        <li> Expert guided services are available when needed.</li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <hr class="divider hidden-lg hidden-md" />
+                    <div class="col-md-6">
+                        <div>
+                            <h4 class="text-primary text-nowrap">
+                                <b> uDrop Off </b>
+                                <img class="img-circle services-image-icon" src="img/sameday_delivery_icon.png" />
+                            </h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2 col-lg-2 col-xs-3">
+
+                                <img class="services-image img-circle" src="img/uDropoff_Icon.png" />
+
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-9">
+                                <p class="text-left text-info">
+                                    <ul>
+                                        <li>Customers can leave their laundry here and come & collect washed, dried and folded laundry at a later time.</li>
+                                        <li>Detergent, fabric softener, cuff and collar treatment and 100% drying are included in the costs.</li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <hr class="divider hidden-lg hidden-md" />
+                    <div class="col-md-6">
+                        <div>
+                            <h4 class="text-primary text-nowrap">
+                                <b> vPickup & vDrop </b>
+                                <img class="img-circle services-image-icon" src="img/sameday_delivery_icon.png" />
+                                <img class="img-circle services-image-icon" src="img/24x7_Icon.png" />
+                            </h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2 col-lg-2 col-xs-3">
+
+                                <img class="img-circle services-image" src="img/vPick_Drop_Icon.png" />
+
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-9">
+                                <p class="text-left">
+                                    <ul>
+                                        <li> When you can’t come to us... We will come to you!</li>
+                                        <li> <strong>Areas Served: </strong> Kothaguda, Gachibowli, Kondapur, Madhapur, Hafizpet and Manikonda. </li>
+                                        <li> For appointments send SMS/Call/WhatsApp to <span class="text-nowrap">+91 9000828884</span>. </li>
+                                        <li> Minimum laundry weight required to avail the pick-up service is 4 kg (approx 7 shirts +7 trousers). </li>
+                                        <li> Avail our Pick up and Drop service with prior appointments only. </li>
+                                        <li> Allow 24-48 hrs for delivery. </li>
+                                        <li> To give move flixibile timing options, we have outsourced pick-up and delivery, please call us for more details</li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr class="divider hidden-lg hidden-md" />
+                    <!--
+                    <div class="col-md-6">
+                        <div>
+                            <h4 class="text-primary text-nowrap">More Benefits </h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3 col-xs-3">
+                                <img height="100" src="img/star.jpg" />
+                            </div>
+                            <div class="col-md-9 col-lg-9 col-xs-9">
+                                <p class="text-left text-info">
+                                    <ul>
+                                        <li> We invite you to our air conditioned outlets, a fun-filled and a happening place to experience new smart way of doing your laundry</li>
+                                        <li> You can also enjoy free Wi-Fi at all our outlets to go online </li>
+                                        <li> Don’t miss to request for your favourite number, whether it is Lady gaga or pink floyed. We would play anything to keep you smiling </li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+
+                    <div class="col-md-6">
+                        <div>
+                            <h4 class="text-primary text-nowrap"> <b>Steam Iron </b></h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2 col-lg-2 col-xs-3">
+                                <img class="img-circle services-image" src="img/SteamIron_Icon.png" />
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-9">
+                                <p class="text-left text-info">
+                                    <ul>
+                                        <li> Avail our in-house ironing services with a nominal charge for Shirts, Trousers, T-Shirts & Salwar Kameez.</li>
+                                        <li class="text-danger"> Sincere apologies, We can not take "Ironing only" orders.</li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="divider hidden-lg hidden-md" />
+                </div>
+                <!--
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <h4 class="text-primary text-nowrap">
+                                <b> Membership </b>
+                            </h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-1 col-lg-1 col-xs-3">
+                                <img class="img-circle services-image" src="img/Membership-Icon.png" />
+
+
+                            </div>
+                            <div class="col-md-10 col-lg-10 col-xs-9">
+                                <p class="text-left text-info">
+                                    <ul>
+                                        <li> More benifits for returning customers.</li>
+                                        <li> We are offering unlimited validty membership cards.</li>
+                                        <li> Don’t forget to ask us when you see us in store or when you call us.</li>
+
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                -->
+            </div>
+        </div>
+
+        <hr />
+
+
+        <!--
+        <h2 class="text-info" id="tariff">Tariff</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr class="active">
+                    <th>
+                        Type of Service
+                    </th>
+                    <th>
+                        Price / Min. Quantity
+                    </th>
+                    <th>
+                        Price / After Minimum Quantity
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="info">
+                    <td>
+                        <strong> Self Service </strong>
+                    </td>
+                    <td>
+                        <del>&#2352;</del> 240 / 4 kg
+                    </td>
+                    <td>
+                        <del>&#2352;</del> 60 / kg
+                    </td>
+                </tr>
+                <tr class="warning">
+                    <td>
+                        <strong> Staff Assisted Service </strong>
+                    </td>
+                    <td>
+                        <del>&#2352;</del> 260 / 4 kg
+                    </td>
+                    <td>
+                        <del>&#2352;</del> 70 / kg
+                    </td>
+                </tr>
+                <tr class="success">
+                    <td>
+                        <strong> Home Delivery </strong>
+                    </td>
+                    <td>
+                        <del>&#2352;</del> 290 / 4 kg
+                    </td>
+                    <td>
+                        <del>&#2352;</del> 80 / kg
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        * 4 kg is approx. to 7 shirts & 7 Trousers
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        ** Service Tax of 14% apply
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        *** 60 minutes washing and drying of your  laundry* (Only Self Service)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        -->
+        <table class="table table-bordered">
+
+            <tr class="warning">
+                <td>
+                    <strong> Pressing </strong>
+                </td>
+                <td colspan="2">
+                    <div class="row">
+                        <div class="container-fluid">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                Regular Wear &#8211; <del>&#2352;</del> 8 /e.a.,
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                Pillow Cover &#8211; <del>&#2352;</del>  6 /e.a.,
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                Bedsheet Medium &#8211;<del>&#2352;</del>  10 /e.a.,
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                Bedsheet Large &#8211; <del>&#2352;</del>  20 /e.a.
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <!--
+            <tr class="info">
+                <td>
+                    <strong> Dry Wash </strong>
+                </td>
+                <td colspan="2">
+                    <div class="row">
+                        <div class="container-fluid">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                Suite 3 piece &#8211; <del>&#2352;</del> 400,
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                Tie &#8211; <del>&#2352;</del>  70 /e.a. ,
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                Pattu Saree &#8211;<del>&#2352;</del>  200 /e.a.,
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                Zaree Saree &#8211; <del>&#2352;</del>  150 /e.a.,
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                Sherwani &#8211; <del>&#2352;</del>  300 /e.a.,
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                Carpet Double &#8211; <del>&#2352;</del>  500 /e.a.,
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                Carpet Single &#8211; <del>&#2352;</del>  300 /e.a.,
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                Saree Rolling &#8211; <del>&#2352;</del>  40 /e.a.,
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                Shirt Starch &#8211; <del>&#2352;</del>  100 /e.a.,
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                Saree &#8211; <del>&#2352;</del>  50 /e.a.
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            -->
+            </tr>
+        </table>
+
+        <hr />
+
+
+
+        <div class="row" id="contacts">
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div>
+                    <h2 class="text-info">Location</h2>
+                    <address>
+                        <span class="jumbotron-heading "><strong>1 Hour Laundry</strong><br></span>
+                        Beside Chirec Avenu (School)<br>
+                        Kothaguda, Hyderabad, TS 500084<br>
+                        India
+                    </address>
+                    <hr>
+                    <a href="tel:+91 9000828884"><span class="glyphicon glyphicon-phone-alt brand-color"></span> <strong> &nbsp; +91 9000 82 88 84 </strong> </a> <br>
+                    <a href="https://www.google.com/maps/place/1+Hour+Laundry/@17.462655,78.3520651,17z/data=!3m1!4b1!4m2!3m1!1s0x3bcb93b246c2d4cd:0xcc1c326ebfc303a5" target="_blank"> <strong> <span class="glyphicon glyphicon-map-marker brand-color"></span> &nbsp; Locate in Google Maps </strong></a>
+
+                </div>
+
+                <hr />
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <!--img class="img-circle" src="img/time.jpg" style="width:70px;" />-->
+                        <br />
+                        <span class="glyphicon glyphicon-time brand-color" style="font-size:55px;"></span>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                        <h4 class="text-info"> &nbsp; Store Hours</h4>
+                        <ul>
+                            <li> Mon-Fri: <strong>9 AM </strong> to <strong> 9 PM</strong> </li>
+                            <li> Sat-Sun: <strong>6 AM </strong> to <strong> 9 PM</strong> </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr />
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 hidden-xs">
+                <!-- <div id="map-canvas"></div> -->
+               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.9501105990603!2d78.34989111531091!3d17.462101788033827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93b246c2d4cd%3A0xcc1c326ebfc303a5!2s1+Hour+Laundry!5e0!3m2!1sen!2sus!4v1564424704996!5m2!1sen!2sus" width="100%" height="370" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+
+        </div>
+
+
+        <h2 class="text-info" id="tips">Tips for Self Service</h2>
+        <div class="row">
+
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <h4 class="brand-color"> Loading to Washer </h4>
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-info">Group your clothes by fabric type and color</li>
+                    <li class="list-group-item list-group-item-info">Always check tags for special instructions</li>
+                    <li class="list-group-item list-group-item-info">Load cloths in Washer</li>
+                    <li class="list-group-item list-group-item-info">Pile clothes loosely in washer, leaving about 5" of space from the top</li>
+                    <li class="list-group-item list-group-item-info">Over-loading the washer or adding too much soap can cause the machine to leak or spin longer than intended</li>
+                </ul>
+
+            </div>
+
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <h4 class="brand-color"> Add Detergent </h4>
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-info">Add 2 tablespoons Detergent per medium load</li>
+                    <li class="list-group-item list-group-item-info">Too much detergent leaves residue in clothing and causes washer malfunction</li>
+                    <li class="list-group-item list-group-item-info">For best results, use 2 tablespoons of our high-efficiency detergent</li>
+                    <li class="list-group-item list-group-item-info">Use pods, but DO NOT place them in the soap tray just toss them in the tub with your clothes</li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <h4 class="brand-color"> Remove from Washer </h4>
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-info">Remove Clothing from Washer.</li>
+                    <li class="list-group-item list-group-item-info">Upon cycle completion, leave the front-load washer door open to help the drum dry quickly</li>
+                    <li class="list-group-item list-group-item-info">Please DO NOT slam the machine doors or soap tray</li>
+
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <h4 class="brand-color"> Load Dryer </h4>
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-info">Load Dryer.</li>
+                    <li class="list-group-item list-group-item-info">Give a gentle flick for each cloth for better drying</li>
+                    <li class="list-group-item list-group-item-info">Clean the lint screen to ensure maximum air flow is achieved to dry quickly and save energy</li>
+                    <li class="list-group-item list-group-item-info">One washer load requires one dryer load</li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <nav class="navbar navbar-inverse">
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <br />
+                <section class="text-info text-center">
+                    <span class="glyphicon glyphicon-copyright-mark"></span> 2015-2018 <span class="brand-color"> 1 Hour Laundry </span> All rights reserved
+                </section>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <br />
+                <section class="text-info text-center">
+                    <a class="btn btn-sm btn-warning" data-toggle="modal" data-target="#termsofservice">Terms of Service</a>
+                    <!--
+                    <a class="btn btn-sm btn-info" data-toggle="modal" data-target="#bulkOrderEnquiryModal">Bulk Order Enquiry</a>
+                    -->
+                </section>
+                <section></section>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <br />
+                <div class="text-center">
+                    <a href="https://www.google.com/maps/place/1+Hour+Laundry/@17.462655,78.3520651,17z/data=!3m1!4b1!4m2!3m1!1s0x3bcb93b246c2d4cd:0xcc1c326ebfc303a5" target="_blank"> <img src="img/map-icon.png" width="30"> </a>
+                    <a href="https://www.facebook.com/1hrlaundry" target="_blank"> <img src='img/face.png' width="30">  </a>
+                    <a href="https://twitter.com/1hrlaundry" target="_blank"> <img src="img/twitter.png" width="30"> </a>
+                    <a href="https://plus.google.com/116143009991486714731/about" target="_blank"> <img src="img/goog.png" width="30"> </a>
+
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <h2> <a href="tel:+91 9000828884" class="btn btn-lg btn-success">  <span class="glyphicon glyphicon-earphone"></span> +91 9000 82 88 84 </a> </h2>
+                <br />
+            </div>
+
+        </div>
+
+    </nav>
+    <!-- Backto Top-->
+    <div id="button-wraper">
+        <div id="backToTop">
+            <a href="#top">
+                <label class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-arrow-up"></span> </label>
+            </a>
+        </div>
+    </div>
+
+
+
+    <!-- Terms of Service Model -->
+    <div id="termsofservice" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Terms of Service</h4>
+                </div>
+                <div class="modal-body">
+
+                    <p>
+                        1 Hour Laundry, its employees, agents, and contractors (“1 Hour Laundry:) are is pleased to provide professional pick-up and delivery laundry services to our customers and offers quality and convenience at an affordable price. We offer you, our customers, our services subject to your compliance with and acceptance of the terms and conditions stated and set forth below. Your use of 1 Hour Laundry services (“Services”) indicates your agreement to be bound by the terms and conditions contained herein. Please read the following provisions carefully and if you do not so agree, you should inform us and cease using the Services immediately. This agreement is strictly between 1 Hour Laundry, its customers and services provided by parties subcontracted by 1 Hour Laundry, and does not in any way constitute or imply any relationship with any other parties.
+                    </p>
+                    <h4> Pick-up/Delivery Schedule </h4>
+                    <p>
+                        Pick-up/Delivery will take place on a pre-determined day and frequency, except on certain holidays as determined by the assigned subcontracted service provider. 1 Hour Laundry reserves the right to determine the pick-up/delivery times and reschedule pick-up/delivery times upon prior notice to its customers.
+                    </p>
+                    <h4>Pick-up and Delivery, Procedure and Terms</h4>
+                    <p>
+                        1 Hour Laundry will provide each customer with a 1 Hour Laundry nylon/polyurethane laundry bag. 1 Hour Laundry reserves the right not to pick-up items that are not in these bags. Weekly customers are provided a free 1 Hour Laundry bag(s) at the beginning of their service plan. A fee of 150 Rs per bag will be charged to the customer for replacement bags.
+
+                        The customer agrees not to include any of the following items inside their wash and fold laundry bag given to 1 Hour Laundry representatives for service: (i) non-washable items, (ii) items that are labeled for hand washing and/or dry cleaning only, or (iii) any other items not meant for laundering.
+                        The customer is responsible for any and all damage caused by any items left in the customer’s clothing or laundry bag that causes damage to the clothing of any customer, the cleaning machines, or any other property of 1 Hour Laundry or its other parties or customers.
+                        1 Hour Laundry and its subcontractors are not responsible for, and shall not pay for, any loss, damage or theft of items left unattended by the customer for pick-up or delivery. 1 Hour Laundry will not leave items in the possesion of any other person that is not the owner of those items unless the owner has given prior consent. The customer is responsible for ensuring that his/her 1 Hour Laundry laundry bag is in the possession of a 1 Hour Laundry representative.
+                    </p>
+                    <h4>Missed/Unattended Pick-up or Delivery</h4>
+                    <p>
+                        If the customer misses the scheduled pick-up during any given week, the customer will forfeit the service for that week and will not be reimbursed. If the customer misses a scheduled delivery, the customer must coordinate with 1 Hour Laundry to reschedule the delivery during the next available delivery time.
+                        Payment:
+                        The customer must pay the agreed upon charges prior to service. Service will not begin until 1 Hour Laundry has received payment in full. Services that have been paid for but go unused do not carry over from week to week or from service term to service term. All online payments are made through 1 Hour Laundry’s secured payment system or as an <Security System>
+                            debit directly from their checking account via 1 Hour Laundry’s invoice. 1 Hour Laundry does not accept cash but does accept checks mailed directly to the Accounting Department. Contact us at 1hourlaundry@gmail.com if you wish to coordinate such a payment. 1 Hour Laundry reserves the right to change prices at any time.
+                            Weekly use customers are required to provide credit card information that will be stored securely by 1 Hour Laundry’s thrid party credit card processor. If additional services outside of the customer’s purchased weekly serivce plan are requested, said credit card will be charged the fee for these services.
+                    </p>
+                    <h4>Refunds</h4>
+                    <p>
+                        Except as described in this paragraph, all sales are final and all payments are non-refundable. A customer who has signed up for a prepaid package plan will have the right to cancel his or her contract within fourteen (14) days of signing up for the 1 Hour Laundry service and receive a full refund if no promotional item was received. After such fourteen day period, 1 Hour Laundry shall have no obligation to refund any amounts paid by the customer. If a promotional item was received the sale is final and the payment is non-refundable.
+                        Inventory Sheets:
+                        Inventory sheets are available per request that should be filled out by the customer. While not required, we request that you fill out these sheets so that there is never any discrepancy to the items in your bag. You will be notified immediately of any discrepancy that is discovered. We will not proceed with washing without resolving said discrepancy with you. All information provided on the inventory sheets by the customer shall be accurate in every way. 1 Hour Laundry is not responsible for any items not listed on the inventory sheets. 1 Hour Laundry reserves the right to complete an inventory sheet for customer’s who have not provided one themselves based on the items inside the customer’s bag without notice to the customer.
+                    </p>
+                    <h4>Garment Care</h4>
+                    <p>
+                        1 Hour Laundry will use reasonable efforts to maintain a high quality cleaning service. 1 Hour Laundry and its subcontractors accept no liability for damage due to normal cleaning of items without care instructions, or for dry clean items placed inside wash and fold bags. 1 Hour Laundry will follow any reasonable instructions provided, including as to water or drying temperature. However, 1 Hour Laundry does not read cleaning instruction labels of clothes submitted because of the low prices charged. Accordingly, 1 Hour Laundry and its subcontractors accept no liability for special care items that require special attention, including dry clean only items. 1 Hour Laundry is not responsible for clothing bleeding, shrinking, or otherwise changing as a result of normal washing procedures. Precautions will be taken to alleviate these problems if possible. 1 Hour Laundry and its subcontractors reserve the right to refuse to clean any garment. 1 Hour Laundry and its subcontractors do not guarantee the removal of all stains. 1 Hour Laundry will re-clean items that, in its sole discretion, were not properly cleaned and have not been worn since they were cleaned, at no additional cost. 1 Hour Laundry and its subcontractors are not responsible for loss of or damage to any personal or non-cleanable items left in the clothing or laundry bags such as money, jewelry, or any other item. The customer agrees not to leave such items in their clothing or in their laundry bags. Zippers behave unpredictably while cleaning. Although zippers generally are not an issue, the client is notified that there is a possibility of zipper issues while following normal wash procedures, and 1 Hour Laundry does not accept any liability for such issues.
+                    </p>
+                    <h4>Loss or Damage</h4>
+                    <p>
+                        Missing or damaged items must be reported to 1 Hour Laundry within 24 hours of delivery of your laundry bag. Failure to report the missing or damaged item within 24 hours shall remove any liability of 1 Hour Laundry for the missing or damaged item. In the event that any item is lost or damaged by 1 Hour Laundry, 1 Hour Laundry will issue the customer a refund or credit for the value of that item as stated in this paragraph. If a customer is able to provide proof of purchase and purchase amount of the lost or damaged item, 1 Hour Laundry will provide a full refund, notwithstanding a maximum reimbursement for each individual item of 500 Rs, and the maximum total reimbursement per customer of 750 Rs. If a customer is unable to provide proof of purchase, 1 Hour Laundry will issue the customer a refund or credit for the value of that item as specified in the National Fair Claims Guide from the International Fabricare Institute (“IFI”). This guide takes into account the average life of the garment, depreciation for the age of the item, and the current replacement cost. If the customer is unable to document the age of a garment, 1 Hour Laundry reserves the right to limit the maximum age of any garment to one year. If no current replacement cost is available 1 Hour Laundry reserves the right to use the replacement cost of a comparable item currently available. 1 Hour Laundry and its subcontractors are not liable for any preexisting damage to a garments or other item and reserves the right to return any item without cleaning it if any preexisting damage is found or if we have a concern about the colorfastness or the age or weakness of the fabric.
+                    </p>
+                    <h4>Use of Third-Party Service Providers</h4>
+                    <p>
+                        1 Hour Laundry reserves the right to utilize any outsourcer, vendor, or outside service provider for any service, without notice to the customer. 1 Hour Laundry is not responsible for, and will not be held liable for, any damage or loss due to the acts or omissions of its vendors, third party outsourcers, or service providers.
+                    </p>
+                    <h4>Confidentiality and Disclaimer</h4>
+                    <p>
+                        1 Hour Laundry takes privacy and personal information seriously. 1 Hour Laundry uses the information collected to fulfill your requests for certain products and services, to process payment transactions and facilitate billing, and to otherwise deliver services. We also may send merchant service announcements, newsletters, and periodic notices about specials and new products. 1 Hour Laundry protects your personal information from disclosure except as used as stated herein, or 1) where we you’re your consent to share the information; 2) we need to share your information with third parties to provide the product or service you requested; 3) where appropriate to comply with the law; and 4) where it is necessary to enforce or apply the Terms of Use or the rights, property, or safety of 1 Hour Laundry, or others. 1 Hour Laundry’s liability shall be limited to general money damages in a maximum amount not to exceed the charges for the term of service paid by the customer during the term in which the damages are alleged to have occurred. This liability shall be the extent of 1 Hour Laundry’s liability regardless of the form in which any legal or equitable action may be brought and the foregoing shall constitute the customer’s exclusive remedy. 1 Hour Laundry disclaims all warranties, express or implied, with respect to the services rendered to the customer. UNDER NO CIRCUMSTANCES SHALL 1 HOUR LAUNDRY BE LIABLE TO CLIENT OR ANY THIRD PARTY FOR INDIRECT, INCIDENTAL, CONSEQUENTIAL, SPECIAL OR EXEMPLARY DAMAGES (EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES), ARISING FROM THIS AGREEMENT, SUCH AS, BUT NOT LIMITED TO, LOSS OF REVENUE OR ANTICIPATED PROFITS OR LOST BUSINESS, COSTS OF DELAY, PERSONAL OR PROPERTY DAMAGE, OR LIABILITIES TO THIRD PARTIES ARISING FROM ANY SOURCE.
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Login -->
+    <div id="loginModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Login</h4>
+                </div>
+                <div class="modal-body">
+                    <form ng-submit="loginSubmit()" ng-controller="loginCtrl" action="#" name="loginFrm">
+                        <div class="form-group">
+
+                            <label for="userName">Email address</label>
+                            <input type="email" class="form-control" id="userName" placeholder="Enter email" ng-model="loginObj.userName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Password" ng-model="loginObj.password" required>
+                        </div>
+                        <span class="badge"> {{loginObj}} </span>
+                        <button type="submit" class="btn btn-warning btn-block ">Submit</button>
+
+                    </form>
+                    <div class="text-right">
+                        <br />
+                        <strong> <a href="/register">Create Account</a></strong>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Signup -->
+    <div id="signupModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Signup</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Bulk Order Enquiry -->
+    <div id="bulkOrderEnquiryModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Bulk Order Enquiry</h4>
+                </div>
+                <div class="modal-body">
+                    <form ng-submit="bulkOrderSubmit()" ng-controller="bulkOrderCtrl" action="#" name="bulkOrderFrm">
+                        <div class="form-group">
+                            <label for="companyName">Company Name *</label>
+                            <input type="text" class="form-control" id="companyName" placeholder="Enter Company Name" ng-model="bulkOrderObj.companyName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email address *</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter Email Id" ng-model="bulkOrderObj.email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Contact Phone Number *</label>
+                            <input ng-minlength="10" ng-maxlength="10" class="form-control" id="phone" placeholder="Enter your Phone" ng-model="bulkOrderObj.phone " ng-required="true">
+                            <span class="help-block" ng-show="bulkOrderObj.phone.$error.required || bulkOrderObj.phone.$error.number">Valid phone number is required</span>
+                            <span class="help-block" ng-show="((bulkOrderObj.phone.$error.minlength || bulkOrderObj.phone.$error.maxlength) && bulkOrderObj.phone.$dirty) ">phone number should be 10 digits</span>
+                        </div>
+                        <span class="badge"> {{bulkOrderObj}} </span>
+                        <br />
+                        <button type="submit" class="btn btn-warning ">Submit</button>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Offers -->
+    <div id="offersModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Membership Types</h4>
+                </div>
+                <div class="modal-body">
+                    <!--<img src="img\membership.jpg" width="100%">
+
+                    <hr>-->
+                    <img src="img/pongal-sale.jpg" width="100%">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
